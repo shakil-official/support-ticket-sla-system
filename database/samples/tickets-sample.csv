@@ -1,0 +1,8 @@
+external_id,subject,description,priority,category,customer_email,status,created_at,assigned_agent_email
+LEGACY-1001,Cannot log in to the portal,"Password reset e-mail never arrives, tried three times.",high,Account,alice@example.com,open,2026-10-05 10:30:00,
+LEGACY-1002,Invoice shows the wrong amount,"The invoice for September lists 12 seats instead of 10.",medium,Billing,bob@example.com,resolved,2026-09-28 14:00:00,agent1@example.com
+LEGACY-1003,Export button throws an error,"Clicking export on the reports page shows HTTP 500.",critical,Technical,carol@example.com,in_progress,2026-10-08 09:15:00,agent2@example.com
+LEGACY-1004,How do I change my plan?,"Looking for the upgrade options.",low,General,dave@example.com,,,
+LEGACY-1001,Duplicate of the first row,"Same external_id: will be skipped.",low,General,alice@example.com,,,
+LEGACY-1005,,"Missing subject: will be reported as an invalid row.",low,General,erin@example.com,,,
+LEGACY-1006,Unknown category example,"Category does not exist: reported.",low,Nonexistent,frank@example.com,,,

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <php>
+        <!-- Inside Docker the REAL environment (docker-compose env_file) points at MySQL/Redis and
+             Laravel reads $_SERVER before $_ENV, so an <env> entry alone is NOT enough: the real
+             values win, tests then run against the dev MySQL (RefreshDatabase would wipe it), CSRF
+             is not bypassed (HTTP 419) and MySQL FULLTEXT cannot see rows inside a transaction.
+             Every value is therefore set twice: <env> ($_ENV/putenv) and <server> ($_SERVER). -->
+        <env name="APP_ENV" value="testing" force="true"/>
+        <env name="APP_KEY" value="base64:dGVzdGluZy1rZXktMzItYnl0ZXMtbG9uZy0xMjM0NTY=" force="true"/>
+        <env name="APP_DEBUG" value="true" force="true"/>
+        <env name="APP_MAINTENANCE_DRIVER" value="file" force="true"/>
+        <env name="BCRYPT_ROUNDS" value="4" force="true"/>
+        <env name="CACHE_STORE" value="array" force="true"/>
+        <env name="DB_CONNECTION" value="sqlite" force="true"/>
+        <env name="DB_DATABASE" value=":memory:" force="true"/>
+        <env name="MAIL_MAILER" value="array" force="true"/>
+        <env name="QUEUE_CONNECTION" value="sync" force="true"/>
+        <env name="SESSION_DRIVER" value="array" force="true"/>
+        <env name="PULSE_ENABLED" value="false" force="true"/>
+        <env name="TELESCOPE_ENABLED" value="false" force="true"/>
+        <env name="TICKET_AUTO_ASSIGN" value="true" force="true"/>
+        <env name="BUSINESS_TIMEZONE" value="Asia/Dhaka" force="true"/>
+        <env name="APP_TIMEZONE" value="UTC" force="true"/>
+        <server name="APP_ENV" value="testing"/>
+        <server name="APP_KEY" value="base64:dGVzdGluZy1rZXktMzItYnl0ZXMtbG9uZy0xMjM0NTY="/>
+        <server name="APP_DEBUG" value="true"/>
+        <server name="APP_MAINTENANCE_DRIVER" value="file"/>
+        <server name="BCRYPT_ROUNDS" value="4"/>
+        <server name="CACHE_STORE" value="array"/>
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+        <server name="MAIL_MAILER" value="array"/>
+        <server name="QUEUE_CONNECTION" value="sync"/>
+        <server name="SESSION_DRIVER" value="array"/>
+        <server name="PULSE_ENABLED" value="false"/>
+        <server name="TELESCOPE_ENABLED" value="false"/>
+        <server name="TICKET_AUTO_ASSIGN" value="true"/>
+        <server name="BUSINESS_TIMEZONE" value="Asia/Dhaka"/>
+        <server name="APP_TIMEZONE" value="UTC"/>
+    </php>
+</phpunit>
