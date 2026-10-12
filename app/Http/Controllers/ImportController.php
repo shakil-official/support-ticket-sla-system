@@ -87,8 +87,22 @@ class ImportController extends Controller
     {
         return response()->streamDownload(function (): void {
             $out = fopen('php://output', 'w');
+
+            $example = [
+                'subject' => 'Cannot log in',
+                'description' => 'Password reset e-mail never arrives.',
+                'priority' => 'high',
+                'category' => 'Account',
+                'customer_email' => 'jane@example.com',
+                'external_id' => 'EXT-1001',
+                'status' => 'open',
+                'created_at' => '2026-10-05 10:30:00',
+                'assigned_agent_email' => '',
+            ];
+
+            // Build the example row FROM the header names so the two can never drift apart.
             fputcsv($out, TicketCsvImporter::columns(), ',', '"', '');
-            fputcsv($out, ['EXT-1001', 'Cannot log in', 'Password reset e-mail never arrives.', 'high', 'Account', 'jane@example.com', 'open', '2026-10-05 10:30:00', ''], ',', '"', '');
+            fputcsv($out, array_map(fn (string $column) => $example[$column] ?? '', TicketCsvImporter::columns()), ',', '"', '');
             fclose($out);
         }, 'tickets-import-template.csv', ['Content-Type' => 'text/csv']);
     }
