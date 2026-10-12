@@ -49,7 +49,7 @@ Everything runs in Docker: one command starts the app, database, queue worker, s
 
 ```bash
 # 1. Get the code
-git clone https://github.com/<your-username>/support-ticket-sla.git
+git clone https://github.com/shakil-official/support-ticket-sla-system.git
 cd support-ticket-sla
 
 # 2. Create .env (generates APP_KEY and random database passwords)
